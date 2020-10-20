@@ -1,26 +1,28 @@
-import _ from "lodash";
-import printMe from "./print.js";
 import "./style.css";
-import Icon from "./icon.png";
+import { createElement } from "../src/utils/elements";
+import playButton from "../src/assets/play.svg";
 
-function component() {
-  const element = document.createElement("div");
-  const btn = document.createElement("button");
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(["Hello", "webpack"], " ");
-  element.classList.add("hello");
+const createClockElement = () => {
+  const playButtonElement = createElement("img", {
+    src: playButton,
+  });
 
-  btn.innerHTML = "Click me and check the console!";
-  btn.onclick = printMe;
+  const timerBox = createElement("div", {
+    className: "timerBox",
+    children: [
+      createElement("button", {
+        className: "timerBox__button",
+        children: [playButtonElement],
+      }),
+      createElement("input", {
+        className: "timerBox__input",
+      }),
+      createElement("span", {
+        className: "timerBox__countdown",
+      }),
+    ],
+  });
+  return timerBox;
+};
 
-  element.appendChild(btn);
-  // Add the image to our existing div.
-  const myIcon = new Image();
-  myIcon.src = Icon;
-
-  element.appendChild(myIcon);
-
-  return element;
-}
-
-document.body.appendChild(component());
+document.body.appendChild(createClockElement());
