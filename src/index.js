@@ -1,19 +1,26 @@
 import "./style.css";
 import { createElement } from "../src/utils/elements";
 import playButton from "../src/assets/play.svg";
+import pauseButton from "../src/assets/pause.svg";
+
+let IntervalId;
 
 const createClockElement = () => {
   const playButtonElement = createElement("img", {
     src: playButton,
   });
-  //const countdownTimer = createCountdownTimer();
+
   const timerBox = createElement("div", {
     className: "timerBox",
     children: [
       createElement("button", {
         className: "timerBox__button",
         children: [playButtonElement],
-        onclick: () => createCountdownTimer(60),
+
+        onclick: () => {
+          const inputValue = document.querySelector(".timerBox__input").value;
+          createCountdownTimer(inputValue);
+        },
       }),
       createElement("input", {
         className: "timerBox__input",
@@ -27,6 +34,8 @@ const createClockElement = () => {
 };
 
 function createCountdownTimer(seconds) {
+  document.querySelector(".timerBox__countdown").textContent = seconds;
+
   const intervalId = setInterval(function () {
     seconds--;
     document.querySelector(".timerBox__countdown").textContent = seconds;
