@@ -19,6 +19,7 @@ const createClockElement = () => {
       }),
       createElement("span", {
         className: "timerBox__countdown",
+        innerText: "00:00:00",
       }),
     ],
   });
